@@ -24,6 +24,7 @@ endif()
 find_package(OpenCV REQUIRED)
 if(Opencv_FOUND)
 	message("found opencv")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 endif()
 
 #generate detector lib
@@ -33,6 +34,4 @@ target_link_libraries(detector nvinfer nvinfer_plugin nvcaffe_parser "stdc++fs")
 				  
 target_include_directories(yolo-trt PRIVATE modules/ extra/)
 target_link_libraries(yolo-trt detector opencv_highgui opencv_imgproc opencv_core opencv_calib3d opencv_dnn)
-
-
-
+target_link_libraries(yolo-trt ${OpenCV_LIBS})
